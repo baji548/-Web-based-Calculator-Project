@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-based Calculator</title>
+    <style>
+       
+       body {
+            font-family: Arial, sans-serif;
+            background-color:beige;
+        }
+
+        .calculator {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color:aliceblue;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border:1px solid black ;
+        }
+
+        #input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: right;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            background-color:deepskyblue;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border:1px solid black ; ;
+        }
+
+        button:hover {
+            background-color:honeydew;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="input" disabled>
+        <div class="buttons">
+            <button onclick="clearInput()">C</button>
+            <button onclick="clearMemory()">MC</button>
+            <button onclick="addToMemory()">M+</button>
+            <button onclick="subtractFromMemory()">M-</button>
+            <button onclick="recallMemory()">MR</button>
+            <button onclick="appendInput('Math.sqrt(')">√</button>
+            <button onclick="appendInput('Math.pow(')">^</button>
+            <button onclick="appendInput('Math.sin(')">sin</button>
+            <button onclick="appendInput('Math.cos(')">cos</button>
+            <button onclick="appendInput('7')">7</button>
+            <button onclick="appendInput('8')">8</button>
+            <button onclick="appendInput('9')">9</button>
+            <button onclick="appendInput('/')">/</button>
+            <button onclick="appendInput('4')">4</button>
+            <button onclick="appendInput('5')">5</button>
+            <button onclick="appendInput('6')">6</button>
+            <button onclick="appendInput('*')">*</button>
+            <button onclick="appendInput('1')">1</button>
+            <button onclick="appendInput('2')">2</button>
+            <button onclick="appendInput('3')">3</button>
+            <button onclick="appendInput('-')">-</button>
+            <button onclick="appendInput('0')">0</button>
+            <button onclick="appendInput('.')">.</button>
+            <button onclick="addPercentage()">%</button>
+            <button onclick="appendInput('+')">+</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="deleteLastChar()">BS</button>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('input');
+        let memory = 0;
+
+        function appendInput(value)
+         {
+            input.value += value;
+        }
+
+        function clearInput()
+         {
+            input.value = '';
+        }
+
+        function calculate()
+         {
+            try {
+                let result = eval(input.value);
+                input.value = result;
+            } catch (error) {
+                input.value = 'Error';
+            }
+        }
+
+        function deleteLastChar() {
+            input.value = input.value.slice(0, -1);
+        }
+
+        function addPercentage() {
+            input.value = eval(input.value) / 100;
+        }
+
+        function clearMemory() {
+            memory = 0;
+        }
+
+        function addToMemory() {
+            memory += eval(input.value);
+        }
+
+        function subtractFromMemory() {
+            memory -= eval(input.value);
+        }
+
+        function recallMemory() {
+            input.value += memory;
+        }
+    </script>
+</body>
+</html>
